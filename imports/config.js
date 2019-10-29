@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 console.log('Configuring things')
 Accounts.ui.config({
-    passwordSignupFields: 'EMAIL_ONLY',
+    passwordSignupFields: 'EMAIL_ONLY', // name & problem title will be in the problem form
     // defaultLayoutType: 'blaze-to-react',
     // defaultTemplate: 'fullPageAtForm',  // default
     // defaultLayout: MainLayout,
