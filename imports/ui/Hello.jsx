@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Links from '../api/links';
+import _ from 'lodash';
+
 
 export default class Hello extends Component {
   state = {
@@ -9,6 +12,7 @@ export default class Hello extends Component {
     this.setState({
       counter: this.state.counter + 1
     });
+    Links.insert({url: "focusedtalk.tech", title: "Get our cool app"})
   }
 
   render() {
