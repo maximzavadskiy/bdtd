@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
+import routes from './constants';
 
 function Copyright() {
     return (
@@ -158,10 +159,11 @@ function SubmitProblem({user}) {
                                 <Button
                                     variant="contained"
                                     color="primary"
+                                    href={routes.submitProblemSuccess}
                                     // onClick={}
                                     className={classes.button}
                                 >
-                                    Submit Problem
+                                    Submit Mentor Request
                                 </Button>
                             </div>
                     </React.Fragment>}
