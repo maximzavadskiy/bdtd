@@ -15,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { withTracker } from 'meteor/react-meteor-data';
+import _ from 'lodash';
 
 function Copyright() {
     return (
@@ -68,98 +70,110 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Checkout() {
+function SubmitProblem({user}) {
     const classes = useStyles();
+
     return (
         <React.Fragment>
             <CssBaseline />
             <Header title="Find a Mentor"/>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                        <Typography variant="h6">
-                            Describe Your Problem
-                        </Typography>
-                        <Typography gutterBottom>
-                            Mentors will choose mentees based on problem description 
-                        </Typography> <Typography gutterBottom> </Typography>
+                        {_.isEmpty(user) && <Typography variant="h6">
+                                You need to Sign In to access this page
+                            </Typography> }
+                        {!_.isEmpty(user) && <React.Fragment>
+                            <Typography variant="h6">
+                                Describe Your Problem
+                            </Typography>
+                            <Typography gutterBottom>
+                                Mentors will choose mentees based on problem description 
+                            </Typography> <Typography gutterBottom> </Typography>
 
-                        <Grid container spacing={3}>
-                            
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    id="title"
-                                    name="title"
-                                    label="Problem title"
-                                    fullWidth
-                                />
+                            <Grid container spacing={3}>
+                                
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        id="title"
+                                        name="title"
+                                        label="Problem title"
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        id="description"
+                                        name="description"
+                                        label="Problem description with concrete example"
+                                        multiline
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        id="reason"
+                                        name="reason"
+                                        label="Why do you think the problem occurs?"
+                                        multiline
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        id="actions"
+                                        name="actions"
+                                        label="What have you tried to solve it?"
+                                        multiline
+                                        fullWidth
+                                    />
+                                </Grid>
+                                
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        id="firstName"
+                                        name="firstName"
+                                        label="First Name"
+                                        fullWidth
+                                        autoComplete="fname"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        id="lastName"
+                                        name="lastName"
+                                        label="Last name"
+                                        fullWidth
+                                        autoComplete="lname"
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    id="description"
-                                    name="description"
-                                    label="Problem description with concrete example"
-                                    multiline
-                                    fullWidth
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    id="reason"
-                                    name="reason"
-                                    label="Why do you think the problem occurs?"
-                                    multiline
-                                    fullWidth
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    id="actions"
-                                    name="actions"
-                                    label="What have you tried to solve it?"
-                                    multiline
-                                    fullWidth
-                                />
-                            </Grid>
-                            
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    id="firstName"
-                                    name="firstName"
-                                    label="First Name"
-                                    fullWidth
-                                    autoComplete="fname"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    id="lastName"
-                                    name="lastName"
-                                    label="Last name"
-                                    fullWidth
-                                    autoComplete="lname"
-                                />
-                            </Grid>
-                        </Grid>
 
-                        <div className={classes.buttons}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                // onClick={}
-                                className={classes.button}
-                            >
-                                Submit Problem
-                            </Button>
-                        </div>
+                            <div className={classes.buttons}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    // onClick={}
+                                    className={classes.button}
+                                >
+                                    Submit Problem
+                                </Button>
+                            </div>
+                    </React.Fragment>}
                 </Paper>
                 <Copyright />
             </main>
         </React.Fragment>
     );
 }
+
+export default SubmitProblemContainer = withTracker(() => {
+    return {
+        user: Meteor.user(),
+    };
+})(SubmitProblem);
