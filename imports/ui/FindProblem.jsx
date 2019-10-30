@@ -15,8 +15,9 @@ import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import Problems from '../api/Problems';
+import Problems, { ProblemType} from '../api/Problems';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 function Copyright() {
     return (
@@ -75,39 +76,44 @@ const useStyles = makeStyles(theme => ({
 
 
 function FindProblem({ user, problems }) {
-    const classes = useStyles();
-    const problemListItems = _.map(problems, (problem) => (
-        <ListItem button key={problem._id}>
-            <ListItemAvatar>
-                <Avatar>
-                    <ImageIcon />
-                </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()} - ${problem.description} - ${problem.user}`} />
-        </ListItem>
-    )) 
-    return (
-        <React.Fragment>
-            <CssBaseline />
-            <Header title="Find a Mentee" />
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    {_.isEmpty(user) && <Typography variant="h6">
-                        You need to Sign In to access this page
-                            </Typography>}
-                    {!_.isEmpty(user) && <React.Fragment> 
-                        <Typography variant="h6">
-                            Mentor Requests
-                        </Typography>
-                        <List className={classes.root}>
-                            {problemListItems}
-                        </List> 
-                    </React.Fragment>}
-                </Paper>
-                <Copyright />
-            </main>
-        </React.Fragment>
-    );
+        const classes = useStyles();
+        const problemListItems = _.map(problems, (problem) => (
+            <ListItem button key={problem._id}>
+                <ListItemAvatar>
+                    <Avatar>
+                        <ImageIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()} - ${problem.description} - ${problem.user.emails[0].address}`} />
+            </ListItem>
+        )) 
+        return (
+            <React.Fragment>
+                <CssBaseline />
+                <Header title="Find a Mentee" />
+                <main className={classes.layout}>
+                    <Paper className={classes.paper}>
+                        {_.isEmpty(user) && <Typography variant="h6">
+                            You need to Sign In to access this page
+                                </Typography>}
+                        {!_.isEmpty(user) && <React.Fragment> 
+                            <Typography variant="h6">
+                                Mentor Requests
+                            </Typography>
+                            <List className={classes.root}>
+                                {problemListItems}
+                            </List> 
+                        </React.Fragment>}
+                    </Paper>
+                    <Copyright />
+                </main>
+            </React.Fragment>
+        );
+}
+
+FindProblem.propTypes = {
+    user: PropTypes.object.isRequired,
+    problems: PropTypes.arrayOf(ProblemType)
 }
 
 export default FindProblemContainer = withTracker(() => {

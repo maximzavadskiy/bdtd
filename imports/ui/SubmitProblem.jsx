@@ -18,6 +18,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import routes from './constants';
+import Problems from '../api/Problems';
 
 function Copyright() {
     return (
@@ -91,6 +92,22 @@ function SubmitProblem({user}) {
                                 Mentors will choose mentees based on problem description 
                             </Typography> <Typography gutterBottom> </Typography>
 
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                const {title, description, reason, actions }  = e.target
+                                Problems.insert({
+                                    createdAt: new Date(),
+                                    title: title.value,
+                                    description: description.value,
+                                    reason: reason.value,
+                                    actions: actions.value,
+                                    user: user
+                                    // title: "Balancing prototype with user interivews",
+                                    // description: "I am product lead in the company. We are super early stage & many things are uncertain. However team is eager to start. How can we utilize both developers and designers without wasting too much effort? My fear is that if we start building code now, most of it will be thrown out and team will be discouraged.",
+                                    // user: null // TODO assign sum user
+                                })
+                                document.location = routes.submitProblemSuccess
+                            }}>
                             <Grid container spacing={3}>
                                 
                                 <Grid item xs={12}>
@@ -107,7 +124,7 @@ function SubmitProblem({user}) {
                                         required
                                         id="description"
                                         name="description"
-                                        label="Problem description with concrete example"
+                                        label="Problem description"
                                         multiline
                                         fullWidth
                                     />
@@ -157,15 +174,15 @@ function SubmitProblem({user}) {
 
                             <div className={classes.buttons}>
                                 <Button
+                                    type="submit"
                                     variant="contained"
                                     color="primary"
-                                    href={routes.submitProblemSuccess}
-                                    // onClick={}
                                     className={classes.button}
                                 >
                                     Submit Mentor Request
                                 </Button>
                             </div>
+                        </form>
                     </React.Fragment>}
                 </Paper>
                 <Copyright />
