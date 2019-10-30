@@ -75,18 +75,22 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function FindProblem({ user, problems }) {
+function FindProblem({ user, problems, users }) {
+        if(_.isEmpty(users)) return null
         const classes = useStyles();
-        const problemListItems = _.map(problems, (problem) => (
+        const problemListItems = _.map(problems, (problem) => {
+            // debugger;
+            const profile = _.find(users, { _id: problem.user._id }).profile;
+            return(
             <ListItem button key={problem._id}>
                 <ListItemAvatar>
                     <Avatar>
                         <ImageIcon />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()} - ${problem.description} - ${problem.user.emails[0].address}`} />
+                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`} />
             </ListItem>
-        )) 
+        )}) 
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -119,6 +123,7 @@ FindProblem.propTypes = {
 export default FindProblemContainer = withTracker(() => {
     return {
         user: Meteor.user(),
-        problems: Problems.find().fetch()
+        problems: Problems.find().fetch(),
+        users: Meteor.users.find().fetch()
     };
 })(FindProblem);

@@ -94,7 +94,7 @@ function SubmitProblem({user}) {
 
                             <form onSubmit={(e) => {
                                 e.preventDefault();
-                                const {title, description, reason, actions }  = e.target
+                                const {title, description, reason, actions, jobTitle, firstName, lastName }  = e.target
                                 Problems.insert({
                                     createdAt: new Date(),
                                     title: title.value,
@@ -102,10 +102,13 @@ function SubmitProblem({user}) {
                                     reason: reason.value,
                                     actions: actions.value,
                                     user: user
-                                    // title: "Balancing prototype with user interivews",
-                                    // description: "I am product lead in the company. We are super early stage & many things are uncertain. However team is eager to start. How can we utilize both developers and designers without wasting too much effort? My fear is that if we start building code now, most of it will be thrown out and team will be discouraged.",
-                                    // user: null // TODO assign sum user
                                 })
+                                Meteor.users.update(user._id, {$set: {
+                                    profile: {
+                                        jobTitle: jobTitle.value,
+                                        name: `${firstName.value} ${lastName.value}`
+                                    }
+                                }})
                                 document.location = routes.submitProblemSuccess
                             }}>
                             <Grid container spacing={3}>
@@ -168,6 +171,15 @@ function SubmitProblem({user}) {
                                         label="Last name"
                                         fullWidth
                                         autoComplete="lname"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        id="jobTitle"
+                                        name="jobTitke"
+                                        label="Job Title"
+                                        fullWidth
                                     />
                                 </Grid>
                             </Grid>

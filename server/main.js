@@ -2,6 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import Problems from '../imports/api/Problems';
 import _ from 'lodash';
 
+Meteor.users.allow({
+  update() { return true; }
+});
+
 Meteor.startup(() => {
   // console.log
   // _.map(Problems.find().fetch(), (problem) => Problems.remove(problem._id))
