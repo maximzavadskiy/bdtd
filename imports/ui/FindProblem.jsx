@@ -16,6 +16,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Problems from '../api/Problems';
+import moment from 'moment';
 
 function Copyright() {
     return (
@@ -82,7 +83,7 @@ function FindProblem({ user, problems }) {
                     <ImageIcon />
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={problem.title} secondary={`${problem.createdAt.toString()} ${problem.description}`} />
+            <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()} - ${problem.description} - ${problem.user}`} />
         </ListItem>
     )) 
     return (
