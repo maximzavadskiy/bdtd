@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import Problems from '../api/Problems';
 
 function Copyright() {
     return (
@@ -72,9 +73,18 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function FindProblem({ user }) {
+function FindProblem({ user, problems }) {
     const classes = useStyles();
-
+    const problemListItems = _.map(problems, (problem) => (
+        <ListItem button key={problem._id}>
+            <ListItemAvatar>
+                <Avatar>
+                    <ImageIcon />
+                </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={problem.title} secondary={`${problem.createdAt.toString()} ${problem.description}`} />
+        </ListItem>
+    )) 
     return (
         <React.Fragment>
             <CssBaseline />
@@ -89,32 +99,9 @@ function FindProblem({ user }) {
                             Mentor Requests
                         </Typography>
                         <List className={classes.root}>
-                            <ListItem button>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <ImageIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary="Photos" secondary="11 Oct by Maxim Zavadskiy, Software Engineer " />
-
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <WorkIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary="Work" secondary="Jan 7, 2014" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <BeachAccessIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary="Vacation" secondary="July 20, 2014" />
-                            </ListItem>
-                    </List> </React.Fragment>}
+                            {problemListItems}
+                        </List> 
+                    </React.Fragment>}
                 </Paper>
                 <Copyright />
             </main>
@@ -125,5 +112,6 @@ function FindProblem({ user }) {
 export default FindProblemContainer = withTracker(() => {
     return {
         user: Meteor.user(),
+        problems: Problems.find().fetch()
     };
 })(FindProblem);

@@ -1,31 +1,21 @@
 import { Meteor } from 'meteor/meteor';
-import Links from '/imports/api/links';
+import Problems from '../imports/api/Problems';
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
-}
 
 Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
-  if (Links.find().count() === 0) {
-    insertLink(
-      'Do the Tutorial',
-      'https://www.meteor.com/tutorials/react/creating-an-app'
-    );
+  if(Problems.find().count() === 0) {
+    Problems.insert({
+      title: "Delivery & priorities when you have to do everything",
+      createdAt: new Date(),
+      description: "As the only person in marketing team i am lost between tasks and failing at delivery. I am  team manager at the company that does startup events & media. Main goal is to sell tickets for our event",
+      user: null // TODO assign sum user
+    })
 
-    insertLink(
-      'Follow the Guide',
-      'http://guide.meteor.com'
-    );
-
-    insertLink(
-      'Read the Docs',
-      'https://docs.meteor.com'
-    );
-
-    insertLink(
-      'Discussions',
-      'https://forums.meteor.com'
-    );
+    Problems.insert({
+      title: "Balancing prototype with user interivews",
+      createdAt: new Date(),
+      description: "I am product lead in the company. We are super early stage & many things are uncertain. However team is eager to start. How can we utilize both developers and designers without wasting too much effort? My fear is that if we start building code now, most of it will be thrown out and team will be discouraged.",
+      user: null // TODO assign sum user
+    })
   }
 });
