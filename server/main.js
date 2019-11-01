@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Problems from '../imports/api/Problems';
 import _ from 'lodash';
+import { Email } from 'meteor/email'
 
 Meteor.users.allow({
   update() { return true; }
@@ -25,4 +26,30 @@ Meteor.startup(() => {
   //     user: "Test user" // TODO assign sum user
   //   })
   // }
+});
+
+// Server: Define a method that the client can call.
+Meteor.methods({
+  sendRequestToAdvisors(userId, from, subject, text) {
+    // Make sure that all arguments are strings.
+    // check([to, from, subject, text], [String]);
+
+    // Let other method calls from the same client start running, without
+    // waiting for the email sending to complete.
+    this.unblock();
+    // Send email notification to all registered
+    const getEmail = (userObj) => userObj.emails[0].address
+    _.forEach(Meteor.users.find().fetch(), (advisor) => {
+      if (advisor._id === userId || !_.get(advisor, 'emails[0]')) return
+
+      Email.send({ 
+        to: `${advisor.profile.name} <${getEmail(advisor)}>`, 
+        from, 
+        subject, 
+        text 
+      });
+
+
+    });
+  }
 });

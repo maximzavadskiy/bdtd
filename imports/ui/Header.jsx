@@ -5,8 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import LoginButtons from './LoginButtons';
+import routes from './constants';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -23,8 +24,8 @@ export default function ButtonAppBar({title}) {
     return (
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
+                    <IconButton href={routes.welcome} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <HomeIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         {title}

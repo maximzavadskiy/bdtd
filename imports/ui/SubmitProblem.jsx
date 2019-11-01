@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function SubmitProblem({user}) {
+function SubmitProblem({user, users}) {
     const classes = useStyles();
 
     return (
@@ -106,6 +106,15 @@ function SubmitProblem({user}) {
                                         name: `${firstName.value} ${lastName.value}`
                                     }
                                 }})
+
+                            Meteor.call(
+                                'sendRequestToAdvisors',
+                                user._id,
+                                `BDTD <maximzavadskiy@gmail.com>`,
+                                `New Advisor Request: "${title.value}"`,
+                                'Hi! You got new request for advisor, go to BDTD to check it'
+                            );
+                            
                                 document.location = routes.submitProblemSuccess
                             }}>
                             <Grid container spacing={3}>
@@ -203,5 +212,6 @@ function SubmitProblem({user}) {
 export default SubmitProblemContainer = withTracker(() => {
     return {
         user: Meteor.user(),
+        users: Meteor.users.find().fetch()
     };
 })(SubmitProblem);
