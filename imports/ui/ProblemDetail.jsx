@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -37,6 +37,9 @@ function Copyright() {
 const useStyles = makeStyles(theme => ({
     appBar: {
         position: 'relative',
+    },
+    section: {
+        marginBottom: theme.spacing(3),
     },
     layout: {
         width: 'auto',
@@ -78,11 +81,9 @@ const useStyles = makeStyles(theme => ({
 
 
 function ProblemDetail({ user, problem, users }) {
-        if(_.isEmpty(users)) return null
+         if (_.isEmpty(user) || _.isEmpty(users)) return null
         const classes = useStyles();
-        
         const profile = _.find(users, { _id: problem.user._id }).profile;
-        // `${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -92,13 +93,34 @@ function ProblemDetail({ user, problem, users }) {
                         {_.isEmpty(user) && <Typography variant="h6">
                             You need to Sign In to access this page
                                 </Typography>}
-                        {!_.isEmpty(user) && <React.Fragment> 
+                        {!_.isEmpty(user) && <React.Fragment>
                             <Typography variant="h6">
                                 {problem.title}
                             </Typography>
-                            <List className={classes.root}>
-                                {/* {problemListItems} */}
-                            </List> 
+                            <section className={classes.section}>
+                                <Typography variant="body1" color='textSecondary' gutterBottom>
+                                    {`${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`}
+                                </Typography>
+                                <Typography >
+                                    {problem.description}
+                                </Typography>
+                            </section>
+
+                            <section className={classes.section}>
+                                <Typography variant="button"> Why it occurs </Typography>
+                                <Typography >
+                                    {problem.reason}
+                                </Typography> 
+                            </section>
+
+                            <section className={classes.section}>
+                                <Typography variant="button"> Actions tried </Typography>
+                                <Typography>
+                                    {problem.actions}
+                                </Typography>
+                            </section>
+
+                            <Button color="primary" fullWidth variant="contained" href={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advise for you`}> Contact </Button>
                         </React.Fragment>}
                     </Paper>
                     <Copyright />
@@ -114,8 +136,6 @@ ProblemDetail.propTypes = {
 
 export default ProblemDetailContainer = withTracker(() => {
     const id = FlowRouter.getParam('_id');
-    // debugger
-    console.log(id)
     return {
         problem: Problems.findOne(id),
         user: Meteor.user(),
