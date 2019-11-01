@@ -18,7 +18,8 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Problems, { ProblemType} from '../api/Problems';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import routes from './constants';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+
 
 function Copyright() {
     return (
@@ -76,22 +77,12 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function FindProblem({ user, problems, users }) {
+function ProblemDetail({ user, problem, users }) {
         if(_.isEmpty(users)) return null
         const classes = useStyles();
-        const problemListItems = _.map(problems, (problem) => {
-            // debugger;
-            const profile = _.find(users, { _id: problem.user._id }).profile;
-            return(
-            <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>
-                <ListItemAvatar>
-                    <Avatar>
-                        <ImageIcon />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`} />
-            </ListItem>
-        )}) 
+        
+        const profile = _.find(users, { _id: problem.user._id }).profile;
+        // `${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -103,10 +94,10 @@ function FindProblem({ user, problems, users }) {
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment> 
                             <Typography variant="h6">
-                                Advisor Requests
+                                {problem.title}
                             </Typography>
                             <List className={classes.root}>
-                                {problemListItems}
+                                {/* {problemListItems} */}
                             </List> 
                         </React.Fragment>}
                     </Paper>
@@ -116,15 +107,18 @@ function FindProblem({ user, problems, users }) {
         );
 }
 
-FindProblem.propTypes = {
+ProblemDetail.propTypes = {
     user: PropTypes.object,
-    problems: PropTypes.arrayOf(ProblemType)
+    problem: ProblemType
 }
 
-export default FindProblemContainer = withTracker(() => {
+export default ProblemDetailContainer = withTracker(() => {
+    const id = FlowRouter.getParam('_id');
+    // debugger
+    console.log(id)
     return {
+        problem: Problems.findOne(id),
         user: Meteor.user(),
-        problems: Problems.find().fetch(),
         users: Meteor.users.find().fetch()
     };
-})(FindProblem);
+})(ProblemDetail);

@@ -1,6 +1,7 @@
 export default {
     welcome: '/',
     findProblem: '/find-problem',
-    submitProblem: '/submit-problem',
-    submitProblemSuccess: '/submit-problem-success'
+    submitProblem: '/problems',
+    submitProblemSuccess: '/submit-problem-success',
+    problemDetail : (id) =>  `/problems/${id}`
 }
