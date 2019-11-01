@@ -106,13 +106,17 @@ function SubmitProblem({user, users}) {
                                         name: `${firstName.value} ${lastName.value}`
                                     }
                                 }})
-
+                            const getEmail = (userObj) => userObj.emails[0].address
+                            
                             Meteor.call(
                                 'sendRequestToAdvisors',
                                 user._id,
-                                `BDTD <maximzavadskiy@gmail.com>`,
+                                `${firstName.value} ${lastName.value} <${getEmail(user)}>`,
                                 `New Advisor Request: "${title.value}"`,
-                                'Hi! You got new request for advisor, go to BDTD to check it'
+                                "Hi! </br>" +
+                                "You got new request for advisor:" +
+                                "<b> Description </b> </br>" +
+                                description.value
                             );
                             
                                 document.location = routes.submitProblemSuccess
