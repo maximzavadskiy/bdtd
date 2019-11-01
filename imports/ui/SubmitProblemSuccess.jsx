@@ -77,14 +77,14 @@ export default function SubmitProblemSuccess() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Header title="Find a Mentor"/>
+            <Header title="Find an Advisor"/>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography variant="h6">
                         Problem Submitted
                     </Typography>
                     <Typography gutterBottom>
-                        You will be notified by email if a suitable mentor will be found
+                        You will be notified by email if a suitable advisor will be found
                     </Typography> <Typography gutterBottom> </Typography>
 
                     <div className={classes.buttons}>

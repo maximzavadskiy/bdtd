@@ -94,7 +94,7 @@ function FindProblem({ user, problems, users }) {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Header title="Find a Mentee" />
+                <Header title="Give Advise" />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {_.isEmpty(user) && <Typography variant="h6">
@@ -102,7 +102,7 @@ function FindProblem({ user, problems, users }) {
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment> 
                             <Typography variant="h6">
-                                Mentor Requests
+                                Advisor Requests
                             </Typography>
                             <List className={classes.root}>
                                 {problemListItems}

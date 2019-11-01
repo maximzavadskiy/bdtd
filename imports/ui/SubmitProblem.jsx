@@ -78,7 +78,7 @@ function SubmitProblem({user}) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Header title="Find a Mentor"/>
+            <Header title="Find an Advisor"/>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                         {_.isEmpty(user) && <Typography variant="h6">
@@ -88,9 +88,6 @@ function SubmitProblem({user}) {
                             <Typography variant="h6">
                                 Describe Your Problem
                             </Typography>
-                            <Typography gutterBottom>
-                                Mentors will choose mentees based on problem description 
-                            </Typography> <Typography gutterBottom> </Typography>
 
                             <form onSubmit={(e) => {
                                 e.preventDefault();
@@ -191,7 +188,7 @@ function SubmitProblem({user}) {
                                     color="primary"
                                     className={classes.button}
                                 >
-                                    Submit Mentor Request
+                                    Submit Advisor Request
                                 </Button>
                             </div>
                         </form>

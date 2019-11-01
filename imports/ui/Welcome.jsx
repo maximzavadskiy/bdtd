@@ -70,7 +70,7 @@ export default function SignIn() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Find Mentor
+                        Find Advisor
                     </Button>
 
                     <Button
@@ -80,7 +80,7 @@ export default function SignIn() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Find Mentee
+                        Give Advise
                     </Button>
                 </form>
             </div>
