@@ -99,11 +99,11 @@ function FindProblem({ user, problems, users }) {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {_.isEmpty(user) && <Typography variant="h6">
-                            Welcome to BeenThereDoneThat! Please Sign In to see advisor requests.
+                            Welcome to BeenThereDoneThat! Please Sign In to see advise requests.
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment> 
                             <Typography variant="h6">
-                                Advisor Requests
+                                Advise Requests
                                 <Button
                                     href={routes.submitProblem}
                                     variant="outlined"

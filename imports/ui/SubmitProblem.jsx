@@ -92,7 +92,7 @@ function SubmitProblem({user, users}) {
                             <form onSubmit={(e) => {
                                 e.preventDefault();
                                 const {title, description, reason, actions, jobTitle, firstName, lastName }  = e.target
-                                Problems.insert({
+                                const problemId = Problems.insert({
                                     createdAt: new Date(),
                                     title: title.value,
                                     description: description.value,
@@ -111,13 +111,10 @@ function SubmitProblem({user, users}) {
                             Meteor.call(
                                 'sendRequestToAdvisors',
                                 user._id,
-                                `${firstName.value} ${lastName.value} <${getEmail(user)}>`,
-                                `New Advisor Request: "${title.value}"`,
+                                `BeenThereDoneThat Notifications <noreply@beentheredonethat.com>`,
+                                `New Request for Advise: "${title.value}"`,
                                 "<p> Hi, </p>" +
-                                "<p> You got new request for advisor </p>" +
-                                "<p> </p>" +
-                                "<p> <b> Requested by </b> </p>" +
-                                `<p> ${firstName.value} ${lastName.value} , ${jobTitle.value} </p>` +
+                                "<p> You got new request for an advise: </p>" +
                                 "<p> </p>" +
                                 "<p> <b> Description of a problem </b> </p>" +
                                 `<p> ${description.value} </p>` +
@@ -128,7 +125,7 @@ function SubmitProblem({user, users}) {
                                 `<p> ${actions.value} </p>` +
                                 "<p> </p>" +
                                 "<p> </p>" +
-                                "<p> Accept by repliying to this email </p>" +
+                                `<p> <a href=${window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + routes.problemDetail(problemId)}> Offer Advise </a> </p>` +
                                 "<p> </p>" +
                                 "<p> Happy advising, </p>" +
                                 "<p> Maxim Zavadskiy, BeenThereDoneThat Product Guy </p>"
@@ -216,7 +213,7 @@ function SubmitProblem({user, users}) {
                                     color="primary"
                                     className={classes.button}
                                 >
-                                    Submit Advisor Request
+                                    Submit Advise Request
                                 </Button>
                             </div>
                         </form>

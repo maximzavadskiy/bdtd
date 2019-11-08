@@ -130,7 +130,7 @@ function ProblemDetail({ user, problem, users }) {
                                         user._id, //from
                                         `Advisor Responded To : "${problem.title}"`,
                                         "<p> Hi, </p>" +
-                                        `<p> ${_.get(user, 'profile.name', 'An advisor')} is exressed interest to give you advise. Reply to this email to get in touch with him. You can also ignore this email - she will never know that was you. </p>` +
+                                        `<p> ${_.get(user, 'profile.name', 'Someone')} is exressed interest to give you advise. Reply to this email to get in touch with him. You can also ignore this email - she will never know that was you. </p>` +
                                         // "<p> </p>" +
                                         // "<p> <b> Requested by </b> </p>" +
                                         // `<p> ${firstName.value} ${lastName.value} , ${jobTitle.value} </p>` +

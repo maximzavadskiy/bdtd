@@ -42,7 +42,7 @@ Meteor.methods({
     _.forEach(Meteor.users.find().fetch(), (advisor) => {
       if (advisor._id === userId || !_.get(advisor, 'emails[0]')) return
 
-      console.log('sending msg', `${advisor.profile.name} <${getEmail(advisor)}`, from, subject, text)
+      console.log('Sending msg', `${advisor.profile.name} <${getEmail(advisor)}`, from, subject, text)
       Email.send({ 
         to: `${advisor.profile.name} <${getEmail(advisor)}>`, 
         from, 
