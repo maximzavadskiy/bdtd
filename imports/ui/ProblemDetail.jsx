@@ -82,16 +82,15 @@ const useStyles = makeStyles(theme => ({
 
 
 function ProblemDetail({ user, problem, users }) {
-         if (_.isEmpty(user) || _.isEmpty(users)) return null
         const classes = useStyles();
-        const profile = _.find(users, { _id: problem.user._id }).profile;
+        const profile =_.get( _.find(users, { _id: _.get(problem, 'user._id') }), 'profile');
         return (
             <React.Fragment>
                 <CssBaseline />
                 <Header title="Give Advise" />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
-                        {_.isEmpty(user) && <Typography variant="h6">
+                        {(_.isEmpty(user) || _.isEmpty(users)) && <Typography variant="h6">
                             You need to Sign In to access this page
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment>
