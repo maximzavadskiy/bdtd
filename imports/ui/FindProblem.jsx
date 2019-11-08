@@ -89,7 +89,7 @@ function FindProblem({ user, problems, users }) {
                         <ImageIcon />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`} />
+                <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()}`} />
             </ListItem>
         )}) 
         return (

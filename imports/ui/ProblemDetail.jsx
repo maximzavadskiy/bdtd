@@ -99,7 +99,7 @@ function ProblemDetail({ user, problem, users }) {
                             </Typography>
                             <section className={classes.section}>
                                 <Typography variant="body1" color='textSecondary' gutterBottom>
-                                    {`${moment(problem.createdAt).fromNow()}. By ${_.get(profile, 'name')}, ${_.get(profile, 'jobTitle')}`}
+                                    {moment(problem.createdAt).fromNow()}
                                 </Typography>
                                 <Typography >
                                     {problem.description}

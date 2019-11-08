@@ -91,7 +91,7 @@ function SubmitProblem({user, users}) {
 
                             <form onSubmit={(e) => {
                                 e.preventDefault();
-                                const {title, description, reason, actions, jobTitle, firstName, lastName }  = e.target
+                                const {title, description, reason, actions, firstName, lastName }  = e.target
                                 const problemId = Problems.insert({
                                     createdAt: new Date(),
                                     title: title.value,
@@ -102,7 +102,6 @@ function SubmitProblem({user, users}) {
                                 })
                                 Meteor.users.update(user._id, {$set: {
                                     profile: {
-                                        jobTitle: jobTitle.value,
                                         name: `${firstName.value} ${lastName.value}`
                                     }
                                 }})
@@ -174,7 +173,6 @@ function SubmitProblem({user, users}) {
                                         fullWidth
                                     />
                                 </Grid>
-                                
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
@@ -184,7 +182,9 @@ function SubmitProblem({user, users}) {
                                         fullWidth
                                         autoComplete="fname"
                                     />
+
                                 </Grid>
+
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
@@ -195,14 +195,8 @@ function SubmitProblem({user, users}) {
                                         autoComplete="lname"
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        id="jobTitle"
-                                        name="jobTitke"
-                                        label="Job Title"
-                                        fullWidth
-                                    />
+                                <Grid item xs={12}>
+                                    <Typography> Your name won't be displayed in the request or shared with advisors. </Typography>
                                 </Grid>
                             </Grid>
 
