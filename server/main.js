@@ -47,7 +47,7 @@ Meteor.methods({
         to: `${advisor.profile.name} <${getEmail(advisor)}>`, 
         from, 
         subject, 
-        text 
+        html: text
       });
 
 

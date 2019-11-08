@@ -113,10 +113,25 @@ function SubmitProblem({user, users}) {
                                 user._id,
                                 `${firstName.value} ${lastName.value} <${getEmail(user)}>`,
                                 `New Advisor Request: "${title.value}"`,
-                                "Hi! </br>" +
-                                "You got new request for advisor:" +
-                                "<b> Description </b> </br>" +
-                                description.value
+                                "<p> Hi, </p>" +
+                                "<p> You got new request for advisor </p>" +
+                                "<p> </p>" +
+                                "<p> <b> Requested by </b> </p>" +
+                                `<p> ${firstName.value} ${lastName.value} , ${jobTitle.value} </p>` +
+                                "<p> </p>" +
+                                "<p> <b> Description of a problem </b> </p>" +
+                                `<p> ${description.value} </p>` +
+                                "<p> </p>" +
+                                "<p> <b> Why a problem occurs </b> </p>" +
+                                `<p> ${reason.value} </p>`+ 
+                                "<p> <b> Actions tried </b> </p>" +
+                                `<p> ${actions.value} </p>` +
+                                "<p> </p>" +
+                                "<p> </p>" +
+                                "<p> Accept by repliying to this email </p>" +
+                                "<p> </p>" +
+                                "<p> Happy advising, </p>" +
+                                "<p> Maxim Zavadskiy, BeenThereDoneThat Product Guy </p>"
                             );
                             
                                 document.location = routes.submitProblemSuccess
