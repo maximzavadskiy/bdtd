@@ -9,6 +9,8 @@ import routes from '/imports/ui/constants'
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
 import SubmitProblemSuccess from '../imports/ui/SubmitProblemSuccess';
+import SubmitHiSuccess from '../imports/ui/SubmitHiSuccess';
+
 import ProblemDetail from '../imports/ui/ProblemDetail';
 
 // FlowRouter automatically mounts React, no need for .render & Meteor.startup
@@ -39,3 +41,12 @@ FlowRouter.route(routes.problemDetail(':_id'), {
     mount(ProblemDetail)
   },
 });
+
+FlowRouter.route(routes.submitHiSuccess, {
+  name: 'Submit Hi Success',
+  action() {
+    mount(SubmitHiSuccess)
+  },
+});
+
+

@@ -19,6 +19,7 @@ import Problems, { ProblemType} from '../api/Problems';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { FlowRouter } from 'meteor/kadira:flow-router';
+import routes from './constants';
 
 
 function Copyright() {
@@ -120,7 +121,37 @@ function ProblemDetail({ user, problem, users }) {
                                 </Typography>
                             </section>
 
-                            <Button color="primary" fullWidth variant="contained" href={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advise for you`}> Contact </Button>
+                            {/* ={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advise for you`} */}
+                            <Button color="primary" fullWidth variant="contained" onClick={
+                                ()=> {
+                                    Meteor.call(
+                                        'sendMail',
+                                        problem.user._id, // to
+                                        user._id, //from
+                                        `Advisor Responded To : "${problem.title}"`,
+                                        "<p> Hi, </p>" +
+                                        `<p> ${_.get(user, 'profile.name', 'An advisor')} is exressed interest to give you advise. Reply to this email to get in touch with him. You can also ignore this email - she will never know that was you. </p>` +
+                                        // "<p> </p>" +
+                                        // "<p> <b> Requested by </b> </p>" +
+                                        // `<p> ${firstName.value} ${lastName.value} , ${jobTitle.value} </p>` +
+                                        // "<p> </p>" +
+                                        // "<p> <b> Description of a problem </b> </p>" +
+                                        // `<p> ${description.value} </p>` +
+                                        // "<p> </p>" +
+                                        // "<p> <b> Why a problem occurs </b> </p>" +
+                                        // `<p> ${reason.value} </p>` +
+                                        // "<p> <b> Actions tried </b> </p>" +
+                                        // `<p> ${actions.value} </p>` +
+                                        // "<p> </p>" +
+                                        // "<p> </p>" +
+                                        // "<p> Accept by repliying to this email </p>" +
+                                        "<p> </p>" +
+                                        "<p> Have Fun Chatting, </p>" +
+                                        "<p> Maxim Zavadskiy, BeenThereDoneThat Product Guy </p>"
+                                    );
+                                    document.location = routes.submitHiSuccess
+                                }
+                            } > Send 'Hi' </Button>
                         </React.Fragment>}
                     </Paper>
                     <Copyright />

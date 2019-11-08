@@ -52,5 +52,24 @@ Meteor.methods({
 
 
     });
+  },
+  sendMail(toUserId, fromUserId, subject, text) {
+    // Make sure that all arguments are strings.
+    // check([to, from, subject, text], [String]);
+
+    // Let other method calls from the same client start running, without
+    // waiting for the email sending to complete.
+    this.unblock();
+    // Send email notification to all registered
+    const getEmail = (userObj) => userObj.emails[0].address
+    toUser = Meteor.users.findOne({_id: toUserId})
+    fromUser = Meteor.users.findOne({ _id: fromUserId })
+    console.log(`Sending email (Advisors Hi) from ${getEmail(fromUser)} to ${getEmail(toUser)}`);
+    Email.send({
+      to: `${_.get(toUser, 'profile.name', '')} <${getEmail(toUser)}>`,
+      from: `${_.get(fromUser, 'profile.name', '')} <${getEmail(fromUser)}>`,
+      subject,
+      html: text
+    });
   }
 });
