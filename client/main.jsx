@@ -2,7 +2,6 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import FindProblem from '/imports/ui/FindProblem';
-import Welcome from '/imports/ui/Welcome';
 import SubmitProblem from '/imports/ui/SubmitProblem';
 import '/imports/config';
 import routes from '/imports/ui/constants'
@@ -14,9 +13,9 @@ import ProblemDetail from '../imports/ui/ProblemDetail';
 
 // FlowRouter automatically mounts React, no need for .render & Meteor.startup
 FlowRouter.route(routes.welcome, {
-  name: 'Welcome',
+  name: 'Find Problem',
   action() {
-    mount(Welcome)
+    mount(FindProblem)
   },
 });
 
@@ -24,13 +23,6 @@ FlowRouter.route(routes.submitProblem, {
   name: 'Submit Problem',
   action() {
     mount(SubmitProblem)
-  },
-});
-
-FlowRouter.route(routes.findProblem, {
-  name: 'Find Problem',
-  action() {
-    mount(FindProblem)
   },
 });
 

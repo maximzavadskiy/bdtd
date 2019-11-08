@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
@@ -65,8 +66,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
     },
     button: {
-        marginTop: theme.spacing(3),
-        marginLeft: theme.spacing(1),
+        marginLeft: theme.spacing(2),
     },
     root: {
         width: '100%',
@@ -99,11 +99,19 @@ function FindProblem({ user, problems, users }) {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {_.isEmpty(user) && <Typography variant="h6">
-                            You need to Sign In to access this page
+                            Welcome to BeenThereDoneThat! Please Sign In to see advisor requests.
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment> 
                             <Typography variant="h6">
                                 Advisor Requests
+                                <Button
+                                    href={routes.submitProblem}
+                                    variant="outlined"
+                                    color="primary"
+                                    className={classes.button}
+                                >
+                                    Add
+                                </Button>
                             </Typography>
                             <List className={classes.root}>
                                 {problemListItems}
