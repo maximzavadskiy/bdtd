@@ -82,8 +82,9 @@ const useStyles = makeStyles(theme => ({
 
 
 function ProblemDetail({ user, problem, users }) {
+        if (_.isEmpty(problem)) return 'Loading...'
         const classes = useStyles();
-        const profile =_.get( _.find(users, { _id: _.get(problem, 'user._id') }), 'profile');
+        // const profile =_.get( _.find(users, { _id: _.get(problem, 'user._id') }), 'profile');
         return (
             <React.Fragment>
                 <CssBaseline />

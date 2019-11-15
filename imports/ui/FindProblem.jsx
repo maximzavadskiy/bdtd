@@ -76,12 +76,9 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function FindProblem({ user, problems, users }) {
-        if(_.isEmpty(users)) return null
+function FindProblem({ user, problems }) {
         const classes = useStyles();
         const problemListItems = _.map(problems, (problem) => {
-            // debugger;
-            const profile = _.find(users, { _id: problem.user._id }).profile;
             return(
             <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>
                 <ListItemAvatar>
@@ -132,7 +129,6 @@ FindProblem.propTypes = {
 export default FindProblemContainer = withTracker(() => {
     return {
         user: Meteor.user(),
-        problems: Problems.find().fetch(),
-        users: Meteor.users.find().fetch()
+        problems: Problems.find().fetch()
     };
 })(FindProblem);
