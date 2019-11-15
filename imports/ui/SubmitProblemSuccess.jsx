@@ -84,7 +84,7 @@ export default function SubmitProblemSuccess() {
                         Problem Submitted
                     </Typography>
                     <Typography gutterBottom>
-                        If someone will be interested to give an advise they will contact you by email
+                        If someone will be interested to give an advice they will contact you by email
                     </Typography> <Typography gutterBottom> </Typography>
 
                     <div className={classes.buttons}>

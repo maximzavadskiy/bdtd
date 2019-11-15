@@ -111,9 +111,9 @@ function SubmitProblem({user, users}) {
                                 'sendRequestToAdvisors',
                                 user._id,
                                 `BeenThereDoneThat Notifications <noreply@beentheredonethat.com>`,
-                                `New Request for Advise: "${title.value}"`,
+                                `New Request for Advice: "${title.value}"`,
                                 "<p> Hi, </p>" +
-                                "<p> You got new request for an advise: </p>" +
+                                "<p> You got new request for an advice: </p>" +
                                 "<p> </p>" +
                                 "<p> <b> Description of a problem </b> </p>" +
                                 `<p> ${description.value} </p>` +
@@ -124,7 +124,7 @@ function SubmitProblem({user, users}) {
                                 `<p> ${actions.value} </p>` +
                                 "<p> </p>" +
                                 "<p> </p>" +
-                                `<p> <a href=${window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + routes.problemDetail(problemId)}> Offer Advise </a> </p>` +
+                                `<p> <a href=${window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + routes.problemDetail(problemId)}> Offer Advice </a> </p>` +
                                 "<p> </p>" +
                                 "<p> Happy advising, </p>" +
                                 "<p> Maxim Zavadskiy, BeenThereDoneThat Product Guy </p>"
@@ -207,7 +207,7 @@ function SubmitProblem({user, users}) {
                                     color="primary"
                                     className={classes.button}
                                 >
-                                    Submit Advise Request
+                                    Submit Advice Request
                                 </Button>
                             </div>
                         </form>

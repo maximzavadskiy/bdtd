@@ -84,7 +84,7 @@ export default function SubmitProblemSuccess() {
                         Email Is On The Way
                     </Typography>
                     <Typography gutterBottom>
-                        We sent an automated email to the person seeking advise & CC-ed your email. She will get in touch with you via email.
+                        We sent an automated email to the person seeking advice & CC-ed your email. She will get in touch with you via email.
                     </Typography> <Typography gutterBottom> </Typography>
 
                     <div className={classes.buttons}>

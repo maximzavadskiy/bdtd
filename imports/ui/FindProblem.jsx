@@ -92,15 +92,15 @@ function FindProblem({ user, problems }) {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Header title="Give Advise" />
+                <Header title="Give Advice" />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {_.isEmpty(user) && <Typography variant="h6">
-                            Welcome to BeenThereDoneThat! Please Sign In to see advise requests.
+                            Welcome to BeenThereDoneThat! Please Sign In to see advice requests.
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment> 
                             <Typography variant="h6">
-                                Advise Requests
+                                Advice Requests
                                 <Button
                                     href={routes.submitProblem}
                                     variant="outlined"

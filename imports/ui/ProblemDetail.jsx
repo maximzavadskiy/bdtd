@@ -88,7 +88,7 @@ function ProblemDetail({ user, problem, users }) {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Header title="Give Advise" />
+                <Header title="Give Advice" />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {(_.isEmpty(user) || _.isEmpty(users)) && <Typography variant="h6">
@@ -121,7 +121,7 @@ function ProblemDetail({ user, problem, users }) {
                                 </Typography>
                             </section>
 
-                            {/* ={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advise for you`} */}
+                            {/* ={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advice for you`} */}
                             <Button color="primary" fullWidth variant="contained" onClick={
                                 ()=> {
                                     Meteor.call(
@@ -130,7 +130,7 @@ function ProblemDetail({ user, problem, users }) {
                                         user._id, //from
                                         `Advisor Responded To : "${problem.title}"`,
                                         "<p> Hi, </p>" +
-                                        `<p> ${_.get(user, 'profile.name', 'Someone')} is exressed interest to give you advise. Reply to this email to get in touch with him. You can also ignore this email - she will never know that was you. </p>` +
+                                        `<p> ${_.get(user, 'profile.name', 'Someone')} is exressed interest to give you an advice. Reply to this email to get in touch with him. You can also ignore this email - she will never know that was you. </p>` +
                                         // "<p> </p>" +
                                         // "<p> <b> Requested by </b> </p>" +
                                         // `<p> ${firstName.value} ${lastName.value} , ${jobTitle.value} </p>` +
