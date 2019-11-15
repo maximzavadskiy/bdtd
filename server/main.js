@@ -38,13 +38,13 @@ Meteor.methods({
     // waiting for the email sending to complete.
     this.unblock();
     // Send email notification to all registered
-    const getEmail = (userObj) => userObj.emails[0].address
+    const getEmail = (userObj) => _.get(userObj, 'emails[0].address')
     _.forEach(Meteor.users.find().fetch(), (advisor) => {
       if (advisor._id === userId || !_.get(advisor, 'emails[0]')) return
 
-      console.log('Sending msg', `${advisor.profile.name} <${getEmail(advisor)}`, from, subject, text)
+      console.log('Sending msg', `${_.get(advisor, 'profile.name')} <${getEmail(advisor)}`, from, subject, text)
       Email.send({ 
-        to: `${advisor.profile.name} <${getEmail(advisor)}>`, 
+        to: `${_.get(advisor, 'profile.name')} <${getEmail(advisor)}>`, 
         from, 
         subject, 
         html: text

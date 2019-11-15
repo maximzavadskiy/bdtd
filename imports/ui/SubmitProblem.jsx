@@ -113,18 +113,12 @@ function SubmitProblem({user, users}) {
                                 `BeenThereDoneThat Notifications <noreply@beentheredonethat.com>`,
                                 `New Request for Advice: "${title.value}"`,
                                 "<p> Hi, </p>" +
-                                "<p> You got new request for an advice: </p>" +
+                                "<p> Someone needs an advice on this: </p>" +
                                 "<p> </p>" +
-                                "<p> <b> Description of a problem </b> </p>" +
-                                `<p> ${description.value} </p>` +
-                                "<p> </p>" +
-                                "<p> <b> Why a problem occurs </b> </p>" +
-                                `<p> ${reason.value} </p>`+ 
-                                "<p> <b> Actions tried </b> </p>" +
-                                `<p> ${actions.value} </p>` +
+                                `<p> <q> ${description.value} </q> </p>` +
                                 "<p> </p>" +
                                 "<p> </p>" +
-                                `<p> <a href=${window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + routes.problemDetail(problemId)}> Offer Advice </a> </p>` +
+                                `<p> <a href=${window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + routes.problemDetail(problemId)}> Details & Respond </a> </p>` +
                                 "<p> </p>" +
                                 "<p> Happy advising, </p>" +
                                 "<p> Maxim Zavadskiy, BeenThereDoneThat Product Guy </p>"
