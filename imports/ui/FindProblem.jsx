@@ -82,7 +82,9 @@ const useStyles = makeStyles(theme => ({
 function FindProblem({ user, problems }) {
         const classes = useStyles();
         const problemListItems = (myOnly) => {
-            const filteredProblems = myOnly ? _.filter(problems, ["user._id", user._id]): problems;
+            const filteredProblems = myOnly ?
+             _.filter(problems, ["user._id", user._id]):
+                _.filter(problems, (problem) => _.get(problem, "user._id") !== user._id);
             return _.map(filteredProblems, (problem) => {
             return(
             <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>

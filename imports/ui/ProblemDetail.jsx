@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
 function ProblemDetail({ user, problem, users }) {
         if (_.isEmpty(problem)) return 'Loading...'
         const classes = useStyles();
-        // const profile =_.get( _.find(users, { _id: _.get(problem, 'user._id') }), 'profile');
+        const profile =_.get( _.find(users, { _id: _.get(problem, 'user._id') }), 'profile');
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -100,7 +100,7 @@ function ProblemDetail({ user, problem, users }) {
                             </Typography>
                             <section className={classes.section}>
                                 <Typography variant="body1" color='textSecondary' gutterBottom>
-                                    {moment(problem.createdAt).fromNow()}
+                                    {`Created ${moment(problem.createdAt).fromNow()} by ${profile.name}`}
                                 </Typography>
                                 <Typography >
                                     {problem.description}
@@ -119,6 +119,16 @@ function ProblemDetail({ user, problem, users }) {
                                 <Typography>
                                     {problem.actions}
                                 </Typography>
+                            </section>
+
+                            <section className={classes.section}>
+                                <Typography variant="button"> About Me </Typography>
+                                {problem.linkedin && <Typography>
+                                    <a target="_blank" href={problem.linkedin}>  {problem.linkedin} </a>
+                                </Typography> }
+                                {problem.aboutMe && <Typography>
+                                    {problem.aboutMe}
+                                </Typography>}
                             </section>
 
                             {/* ={`mailto:${problem.user.emails[0].address}?subject=BeenThereDoneThat - I may have an advice for you`} */}
@@ -151,7 +161,7 @@ function ProblemDetail({ user, problem, users }) {
                                     );
                                     document.location = routes.submitHiSuccess
                                 }
-                            } > Send 'Hi' </Button>
+                            } > Interested To Give Advice </Button>
                         </React.Fragment>}
                     </Paper>
                     <Copyright />

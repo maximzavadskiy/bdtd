@@ -91,18 +91,20 @@ function SubmitProblem({user, users}) {
 
                             <form onSubmit={(e) => {
                                 e.preventDefault();
-                                const {title, description, reason, actions, firstName, lastName }  = e.target
+                                const {title, description, reason, actions, firstName, lastName, linkedin, aboutMe }  = e.target
                                 const problemId = Problems.insert({
                                     createdAt: new Date(),
                                     title: title.value,
                                     description: description.value,
                                     reason: reason.value,
                                     actions: actions.value,
-                                    user: user
+                                    user: user,
+                                    linkedin: linkedin.value,
+                                    aboutMe: aboutMe.value
                                 })
                                 Meteor.users.update(user._id, {$set: {
                                     profile: {
-                                        name: `${firstName.value} ${lastName.value}`
+                                        name: `${firstName.value} ${lastName.value}`,
                                     }
                                 }})
                             const getEmail = (userObj) => userObj.emails[0].address
@@ -110,7 +112,7 @@ function SubmitProblem({user, users}) {
                             Meteor.call(
                                 'sendRequestToAdvisors',
                                 user._id,
-                                `BeenThereDoneThat Notifications <noreply@beentheredonethat.com>`,
+                                `Max from BeenThereDoneThat <maximzavadskiy@gmail.com>`,
                                 `New Request for Advice: "${title.value}"`,
                                 "<p> Hi, </p>" +
                                 "<p> Someone needs an advice on this: </p>" +
@@ -189,8 +191,30 @@ function SubmitProblem({user, users}) {
                                         autoComplete="lname"
                                     />
                                 </Grid>
+
                                 <Grid item xs={12}>
-                                    <Typography> Your name won't be displayed in the request or shared with advisors. </Typography>
+                                    <TextField
+                                        type="url"
+                                        id="linkedin"
+                                        name="linkedin"
+                                        label="Your Linkedin URL (recommended, increases response chances)"
+                                        fullWidth
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        type="url"
+                                        id="aboutMe"
+                                        name="aboutMe"
+                                        label="Tell shortly about yourself (recommended, increases response chances)"
+                                        fullWidth
+                                        multiline
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Typography> Your email will be shared only with interested potential mentors </Typography>
                                 </Grid>
                             </Grid>
 

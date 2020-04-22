@@ -11,5 +11,7 @@ export const ProblemType = PropTypes.shape({
 
     description: PropTypes.string,
     reason: PropTypes.string,
-    actions: PropTypes.string
+    actions: PropTypes.string,
+    linkedin: PropTypes.string,
+    aboutMe: PropTypes.string
 });
