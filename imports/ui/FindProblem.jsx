@@ -72,13 +72,18 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         backgroundColor: theme.palette.background.paper,
     },
+    advicesIntro: {
+        marginBottom: theme.spacing(4)
+    }
 }));
 
 
 
 function FindProblem({ user, problems }) {
         const classes = useStyles();
-        const problemListItems = _.map(problems, (problem) => {
+        const problemListItems = (myOnly) => {
+            const filteredProblems = myOnly ? _.filter(problems, ["user._id", user._id]): problems;
+            return _.map(filteredProblems, (problem) => {
             return(
             <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>
                 <ListItemAvatar>
@@ -89,6 +94,7 @@ function FindProblem({ user, problems }) {
                 <ListItemText primary={problem.title} secondary={`${moment(problem.createdAt).fromNow()}`} />
             </ListItem>
         )}) 
+            }
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -106,12 +112,27 @@ function FindProblem({ user, problems }) {
                                     variant="outlined"
                                     color="primary"
                                     className={classes.button}
-                                >
-                                    Add
+                                    >
+                                        Add
                                 </Button>
                             </Typography>
+                            <Typography className={classes.advicesIntro}>
+                                Advice Requests is how you get in touch with potential mentors. Interested mentors 'like' their favourite advice requests and we connect them via email.
+                            </Typography>
+
+
+                            <Typography variant="subtitle1">
+                                My Advice Requests
+                            </Typography>
+                            
                             <List className={classes.root}>
-                                {problemListItems}
+                                {problemListItems(true)}
+                            </List> 
+                            <Typography variant="subtitle1">
+                                Other Advice Requests
+                            </Typography>
+                            <List className={classes.root}>
+                                {problemListItems()}
                             </List> 
                         </React.Fragment>}
                     </Paper>
