@@ -88,7 +88,7 @@ function FindProblem({ user, problems }) {
             const filteredProblems = myOnly ?
              _.filter(problems, ["user._id", _.get(user,"_id")]):
                 _.filter(problems, (problem) => _.get(problem, "user._id") !== _.get(user, "_id"));
-            return _.map(filteredProblems, (problem) => {
+            return _.map(_.reverse(_.sortBy(filteredProblems, ['createdAt'])), (problem) => {
             return(
             <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>
                 <ListItemAvatar>
