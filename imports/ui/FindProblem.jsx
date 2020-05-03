@@ -74,6 +74,9 @@ const useStyles = makeStyles(theme => ({
     },
     advicesIntro: {
         marginBottom: theme.spacing(4)
+    },
+    welcome: {
+        marginBottom: theme.spacing(4)
     }
 }));
 
@@ -83,8 +86,8 @@ function FindProblem({ user, problems }) {
         const classes = useStyles();
         const problemListItems = (myOnly) => {
             const filteredProblems = myOnly ?
-             _.filter(problems, ["user._id", user._id]):
-                _.filter(problems, (problem) => _.get(problem, "user._id") !== user._id);
+             _.filter(problems, ["user._id", _.get(user,"_id")]):
+                _.filter(problems, (problem) => _.get(problem, "user._id") !== _.get(user, "_id"));
             return _.map(filteredProblems, (problem) => {
             return(
             <ListItem button key={problem._id} onClick={() => document.location = routes.problemDetail(problem._id)}>
@@ -103,10 +106,10 @@ function FindProblem({ user, problems }) {
                 <Header title="Give Advice" />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
-                        {_.isEmpty(user) && <Typography variant="h6">
-                            Welcome to BeenThereDoneThat! Please Sign In to see advice requests.
+                        {_.isEmpty(user) && <Typography variant="h3" className={classes.welcome}>
+                            Welcome to BeenThereDoneThat. Please Sign In to unlock all features.
                                 </Typography>}
-                        {!_.isEmpty(user) && <React.Fragment> 
+                        <React.Fragment> 
                             <Typography variant="h6">
                                 Advice Requests
                                 <Button
@@ -136,7 +139,7 @@ function FindProblem({ user, problems }) {
                             <List className={classes.root}>
                                 {problemListItems()}
                             </List> 
-                        </React.Fragment>}
+                        </React.Fragment>
                     </Paper>
                     <Copyright />
                 </main>

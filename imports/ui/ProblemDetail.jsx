@@ -92,7 +92,7 @@ function ProblemDetail({ user, problem, users }) {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         {(_.isEmpty(user) || _.isEmpty(users)) && <Typography variant="h6">
-                            You need to Sign In to access this page
+                            You need to Sign In (top right corner) to access this page
                                 </Typography>}
                         {!_.isEmpty(user) && <React.Fragment>
                             <Typography variant="h6">
@@ -100,7 +100,7 @@ function ProblemDetail({ user, problem, users }) {
                             </Typography>
                             <section className={classes.section}>
                                 <Typography variant="body1" color='textSecondary' gutterBottom>
-                                    {`Created ${moment(problem.createdAt).fromNow()} by ${profile.name}`}
+                                    {`Created ${moment(problem.createdAt).fromNow()} by ${_.get(profile,'name', 'Anonymous')}`}
                                 </Typography>
                                 <Typography >
                                     {problem.description}
