@@ -4,5 +4,6 @@ export default {
     submitProblem: '/problems',
     submitProblemSuccess: '/submit-problem-success',
     problemDetail : (id) =>  `/problems/${id}`,
-    submitHiSuccess: '/submit-hi-success'
+    submitHiSuccess: '/submit-hi-success',
+    unsubscribe: (email) => `/unsubscribe/${email}`
 }

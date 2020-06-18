@@ -1,11 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import Problems from '../imports/api/Problems';
+import Unsubs from '../imports/api/Unsubs';
+
 import _ from 'lodash';
 import { Email } from 'meteor/email'
 
 Meteor.users.allow({
   update() { return true; }
 });
+
 
 Meteor.startup(() => {
   // console.log
@@ -41,13 +44,18 @@ Meteor.methods({
     const getEmail = (userObj) => _.get(userObj, 'emails[0].address')
     _.forEach(Meteor.users.find().fetch(), (advisor) => {
       if (advisor._id === userId || !_.get(advisor, 'emails[0]')) return
-
+      if (Unsubs.findOne({email: getEmail(advisor)})) {
+          console.log(getEmail(advisor), 'is unsubscribed from mailling list, skipping')
+          return;
+      }
       console.log('Sending msg', `${_.get(advisor, 'profile.name')} <${getEmail(advisor)}`, from, subject, text)
       Email.send({ 
         to: `${_.get(advisor, 'profile.name')} <${getEmail(advisor)}>`, 
         from, 
         subject, 
-        html: text
+        html: text +
+          `<br> <small> You are receiving this emails because you are subscribed to BeedThereDoneThat mentorship platform updates. If you no longer wish to receive emails from BeenThereDoneThat, <a href="${Meteor.absoluteUrl() + 'unsubscribe/' + encodeURI(getEmail(advisor))}">unsubscribe here </a>`
+
       });
 
 
@@ -65,11 +73,30 @@ Meteor.methods({
     toUser = Meteor.users.findOne({_id: toUserId})
     fromUser = Meteor.users.findOne({ _id: fromUserId })
     console.log(`Sending email (Advisors Hi) from ${getEmail(fromUser)} to ${getEmail(toUser)}`);
+    if (Unsubs.findOne({ email: getEmail(toUser) })) {
+      console.log(getEmail(toUser), 'is unsubscribed from mailling list, skipping')
+      return;
+    }
+   
     Email.send({
       to: `${_.get(toUser, 'profile.name', '')} <${getEmail(toUser)}>`,
-      from: `${_.get(fromUser, 'profile.name', '')} <${getEmail(fromUser)}>`,
+      from: `Notifications from BeenThereDoneThat <maximzavadskiy@gmail.com>`,
+      replyTo: `${_.get(fromUser, 'profile.name', '')} <${getEmail(fromUser)}>`,
       subject,
-      html: text
+      html: text + 
+        `<br> <small> You are receiving this emails 
+        because you are subscribed to BeedThereDoneThat mentorship platform updates. 
+        If you no longer wish to receive emails from BeenThereDoneThat, 
+        <a href="${Meteor.absoluteUrl() + 'unsubscribe/' + encodeURI(getEmail(toUser))}">unsubscribe here </a> </small>`
     });
+
+    // sgMail.send({
+    //   to: `${_.get(toUser, 'profile.name', '')} <${getEmail(toUser)}>`,
+    //   from: `${_.get(fromUser, 'profile.name', '')} <${getEmail(fromUser)}>`,
+    //   subject,
+    //   text
+    //   // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    // });
+
   }
 });

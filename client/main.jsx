@@ -12,6 +12,7 @@ import SubmitProblemSuccess from '../imports/ui/SubmitProblemSuccess';
 import SubmitHiSuccess from '../imports/ui/SubmitHiSuccess';
 
 import ProblemDetail from '../imports/ui/ProblemDetail';
+import Unsubscribe from '../imports/ui/Unsubscribe';
 
 // FlowRouter automatically mounts React, no need for .render & Meteor.startup
 FlowRouter.route(routes.welcome, {
@@ -46,6 +47,13 @@ FlowRouter.route(routes.submitHiSuccess, {
   name: 'Submit Hi Success',
   action() {
     mount(SubmitHiSuccess)
+  },
+});
+
+FlowRouter.route(routes.unsubscribe(':_id'), {
+  name: 'Ubsubscribe',
+  action() {
+    mount(Unsubscribe)
   },
 });
 
